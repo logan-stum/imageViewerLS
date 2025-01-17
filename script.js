@@ -3,7 +3,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const imageContainer = document.getElementById("imageContainer");
     const textInput = document.getElementById("textInput");
     const submitTextBtn = document.getElementById("submitTextBtn");
-    const sanitizedText = document.getElementById("sanitizedText");
+
+    let img;
 
     loadImageBtn.addEventListener("click", () => {
         if (imageContainer.querySelector("img")) {
@@ -11,9 +12,11 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        const img = document.createElement("img");
+        img = document.createElement("img");
         img.src = "https://pswcsweng861ls.blob.core.windows.net/images/violetCool.jpg";
         img.alt = "Violet";
+        img.width = 500;
+        img.height = 500;
         img.onload = () => console.log("Image loaded successfully!");
         img.onerror = () => console.error("Failed to load image!");
 
@@ -31,7 +34,6 @@ document.addEventListener("DOMContentLoaded", () => {
             .replace(/>/g, "&gt;")
             .replace(/"/g, "&quot;")
             .replace(/'/g, "&#039;");
-
-        sanitizedText.innerHTML = sanitized || "No text submitted.";
+            textInput.value = sanitized;
     });
 });
