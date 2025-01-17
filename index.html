@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Logan Stum's Website</title>
     <link rel="stylesheet" href="style.css">
+
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        img-src 'self';
+        script-src 'self';
+        style-src 'self';
+    ">
 </head>
 <body>
     <div id="app">
@@ -12,9 +19,15 @@
         <p>Click to see my puppy!</p>
         <button id="loadImageBtn">Load Image</button>
         <div id="imageContainer"></div>
-        <div id="resizeControls" style="display: none;">
-            <label for="resizeSlider">Resize Image:</label>
-            <input type="range" id="resizeSlider" min="100" max="800" value="400">
+
+        <div id="textSubmission">
+            <h2>Submit Text</h2>
+            <textarea id="textInput" placeholder="Enter text here"></textarea>
+            <button id="submitTextBtn">Submit</button>
+            <div id="outputContainer">
+                <h3>Sanitized Output:</h3>
+                <p id="sanitizedText"></p>
+            </div>
         </div>
     </div>
 
