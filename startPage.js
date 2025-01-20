@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const response = await fetch("/.auth/me");
             if (response.ok) {
                 const userInfo = await response.json();
-                if (userInfo.userId != 0) {
+                if (userInfo.clientPrincipal != null) {
                     console.log(userInfo);
                     window.location.href = "/welcome";  
                 } else {
