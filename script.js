@@ -7,8 +7,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const logoutBtn = document.getElementById("logoutBtn"); // Add ID for the logout button
     const userDetails = document.getElementById("userDetails");
 
-    logoutBtn.style.display = "none";
-
     let img;
 
     loadImageBtn.addEventListener("click", () => {
@@ -41,49 +39,34 @@ document.addEventListener("DOMContentLoaded", () => {
         textInput.value = sanitized;
     });
 
-    function updateAuthUI(isAuthenticated) {
-        if (isAuthenticated) {
-            loginBtn.style.display = "none"; // Hide login button
-            logoutBtn.style.display = "block"; // Show logout button
-        } else {
-            loginBtn.style.display = "block"; // Show login button
-            logoutBtn.style.display = "none"; // Hide logout button
-        }
-    }
+    loginBtn.addEventListener("click", () => {
+        window.location.href = "/.auth/login/google"; 
+    });
 
+    logoutBtn.addEventListener("click", () => {
+        window.location.href = "/.auth/logout";
+    });
 
-    // Check if the user is already logged in
     fetch("/.auth/me")
         .then((response) => {
             if (response.ok) {
                 return response.json();
             } else {
-                throw new Error("User is not authenticated");
+                throw new Error("Not logged in");
             }
         })
         .then((userInfo) => {
+            console.log("User Info:", userInfo);
             if (userInfo.length > 0) {
-                // User is authenticated
                 userDetails.textContent = `Logged in as: ${userInfo[0].userId}`;
-                updateAuthUI(true); // Show logout button, hide login
-            } else {
-                // User is not authenticated
-                updateAuthUI(false); // Show login button, hide logout
+                loginBtn.style.display = "none"; // Hide login button
+                logoutBtn.style.display = "block"; // Show logout button
             }
         })
-        .catch(() => {
-            // In case of error (e.g., no session or network issue)
-            updateAuthUI(false); // Show login button, hide logout
+        .catch((err) => {
+            console.warn("User not logged in:", err);
+            userDetails.textContent = "Not logged in.";
+            loginBtn.style.display = "block"; // Show login button
+            logoutBtn.style.display = "none"; // Hide logout button
         });
-
-
-    // Handle Google login functionality
-    loginBtn.addEventListener("click", () => {
-        window.location.href = "/.auth/login/google"; // Redirect to Google login
-    });
-    
-    // Handle Google logout functionality
-    logoutBtn.addEventListener("click", () => {
-        window.location.href = "/.auth/logout"; // Redirect to logout
-    });
 });
