@@ -39,34 +39,34 @@ document.addEventListener("DOMContentLoaded", () => {
         textInput.value = sanitized;
     });
 
-    loginBtn.addEventListener("click", () => {
-        window.location.href = "/.auth/login/google"; 
-    });
-
-    logoutBtn.addEventListener("click", () => {
-        window.location.href = "/.auth/logout";
-    });
-
+    // Check if the user is already logged in
     fetch("/.auth/me")
         .then((response) => {
             if (response.ok) {
                 return response.json();
             } else {
-                throw new Error("Not logged in");
+                throw new Error("User is not authenticated");
             }
         })
         .then((userInfo) => {
-            console.log("User Info:", userInfo);
             if (userInfo.length > 0) {
                 userDetails.textContent = `Logged in as: ${userInfo[0].userId}`;
-                loginBtn.style.display = "none"; // Hide login button
-                logoutBtn.style.display = "block"; // Show logout button
+                loginBtn.style.display = "none"; // Hide login button if user is logged in
+                logoutBtn.style.display = "block"; // Show logout button if user is logged in
             }
         })
-        .catch((err) => {
-            console.warn("User not logged in:", err);
-            userDetails.textContent = "Not logged in.";
-            loginBtn.style.display = "block"; // Show login button
-            logoutBtn.style.display = "none"; // Hide logout button
+        .catch(() => {
+            loginBtn.style.display = "block"; // Show login button if user is not logged in
+            logoutBtn.style.display = "none"; // Hide logout button if user is not logged in
         });
+
+    // Handle Google login functionality
+    loginBtn.addEventListener("click", () => {
+        window.location.href = "/.auth/login/google"; // Redirect to Google login
+    });
+    
+    // Handle Google logout functionality
+    logoutBtn.addEventListener("click", () => {
+        window.location.href = "/.auth/logout"; // Redirect to logout
+    });
 });
