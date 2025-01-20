@@ -13,21 +13,19 @@
 
 "routes": [
     {
-      "route": "/",
-      "allowedRoles": []
+        "route": "/",
+        "allowedRoles": []
     },
     {
         "route": "/welcome",
-        "allowedRoles": ["authenticated"],
-        "redirect": "/" 
+        "allowedRoles": ["authenticated"]
     },
     {
-        "route": "/.auth/login/google",
-        "redirect": "/welcome"
+        "route": "/.auth/login/google"
     },
     {
-      "route": "/logout",
-      "redirect": "/.auth/logout"
+        "route": "/logout",
+        "redirect": "/.auth/logout"
     }
   ]
 }
