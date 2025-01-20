@@ -3,7 +3,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const imageContainer = document.getElementById("imageContainer");
     const textInput = document.getElementById("textInput");
     const submitTextBtn = document.getElementById("submitTextBtn");
-    const loginBtn = document.getElementById("loginBtn"); // Add an ID for the login button
+    const loginBtn = document.getElementById("loginBtn");
+    const logoutBtn = document.getElementById("logoutBtn"); // Add ID for the logout button
+    const userDetails = document.getElementById("userDetails");
 
     let img;
 
@@ -22,27 +24,29 @@ document.addEventListener("DOMContentLoaded", () => {
         img.onerror = () => console.error("Failed to load image!");
 
         imageContainer.appendChild(img);
-
     });
 
     submitTextBtn.addEventListener("click", () => {
         const userInput = textInput.value;
 
-        // Sanitize user input by escaping special characters
         const sanitized = userInput
             .replace(/&/g, "&amp;")
             .replace(/</g, "&lt;")
             .replace(/>/g, "&gt;")
             .replace(/"/g, "&quot;")
             .replace(/'/g, "&#039;");
-            textInput.value = sanitized;
+
+        textInput.value = sanitized;
     });
 
     loginBtn.addEventListener("click", () => {
-        window.location.href = "/.auth/login/google"; // Redirect to Google login
+        window.location.href = "/.auth/login/google"; 
     });
 
-    // Optional: Check if the user is logged in and display user info
+    logoutBtn.addEventListener("click", () => {
+        window.location.href = "/.auth/logout";
+    });
+
     fetch("/.auth/me")
         .then((response) => {
             if (response.ok) {
@@ -53,10 +57,16 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .then((userInfo) => {
             console.log("User Info:", userInfo);
-            const userDetails = document.getElementById("userDetails");
             if (userInfo.length > 0) {
                 userDetails.textContent = `Logged in as: ${userInfo[0].userId}`;
+                loginBtn.style.display = "none"; // Hide login button
+                logoutBtn.style.display = "block"; // Show logout button
             }
         })
-        .catch((err) => console.warn("User not logged in:", err));
+        .catch((err) => {
+            console.warn("User not logged in:", err);
+            userDetails.textContent = "Not logged in.";
+            loginBtn.style.display = "block"; // Show login button
+            logoutBtn.style.display = "none"; // Hide logout button
+        });
 });

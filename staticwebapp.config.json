@@ -19,8 +19,7 @@
     },
     "routes": [
       {
-        "route": "/",
-        "allowedRoles": ["authenticated"]
+        "route": "/"
       },
       {
         "route": "/login",
