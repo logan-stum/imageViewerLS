@@ -14,8 +14,7 @@
 "routes": [
     {
       "route": "/",
-      "allowedRoles": [],
-      "redirect": "/welcome" 
+      "allowedRoles": []
     },
     {
         "route": "/welcome",
