@@ -18,13 +18,9 @@
       "redirect": "/welcome" 
     },
     {
-      "route": "/login",
-      "allowedRoles": []
-    },
-    {
         "route": "/welcome",
         "allowedRoles": ["authenticated"],
-        "redirect": "/login" 
+        "redirect": "/" 
     },
     {
         "route": "/.auth/login/google",
