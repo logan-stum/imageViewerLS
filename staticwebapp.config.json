@@ -1,34 +1,19 @@
 {
     "auth": {
       "identityProviders": {
-        "customOpenIdConnectProviders": {
-          "google": {
-            "registration": {
-              "clientIdSettingName": "GOOGLE_CLIENT_ID",
-              "clientSecretSettingName": "GOOGLE_CLIENT_SECRET",
-              "authority": "https://accounts.google.com",
-              "scopes": ["openid", "profile", "email"]
-            },
-            "login": {
-              "nameClaimType": "email",
-              "roleClaimType": "roles"
-            }
+        "google": {
+          "registration": {
+            "clientIdSettingName": "GOOGLE_CLIENT_ID",
+            "clientSecretSettingName": "GOOGLE_CLIENT_SECRET"
           }
         }
       }
-    },
+    }
+  ,
 "routes": [
     {
       "route": "/",
-      "allowedRoles": []  // No roles required for home page
-    },
-    {
-      "route": "/profile",
-      "allowedRoles": ["authenticated"]  // Only authenticated users can access the profile page
-    },
-    {
-      "route": "/dashboard",
-      "allowedRoles": ["authenticated"]  // Only authenticated users can access the dashboard
+      "allowedRoles": [] 
     },
     {
       "route": "/login",
