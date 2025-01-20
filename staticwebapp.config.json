@@ -13,21 +13,28 @@
 
 "routes": [
     {
-    "route": "/",
-    "allowedRoles": []
+      "route": "/",
+      "allowedRoles": [],
+      "redirect": "/welcome" 
     },
     {
-    "route": "/welcome",
-    "allowedRoles": ["authenticated"]  
+      "route": "/login",
+      "allowedRoles": [],
+      "redirect": "/welcome" 
     },
     {
-    "route": "/.auth/login/google",
-    "redirect": "/welcome" 
+        "route": "/welcome",
+        "allowedRoles": ["authenticated"],
+        "redirect": "/login" 
     },
     {
-    "route": "/logout",
-    "redirect": "/.auth/logout"
+        "route": "/.auth/login/google",
+        "redirect": "/welcome"
+    },
+    {
+      "route": "/logout",
+      "redirect": "/.auth/logout"
     }
-]
+  ]
 }
 
