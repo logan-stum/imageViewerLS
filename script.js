@@ -8,6 +8,35 @@ document.addEventListener("DOMContentLoaded", () => {
     const userDetails = document.getElementById("userDetails");
 
     let img;
+    fetch("/.auth/me")
+        .then((response) => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error("User is not authenticated");
+            }
+        })
+        .then((userInfo) => {
+            if (userInfo.length > 0) {
+                userDetails.textContent = `Welcome back, ${userInfo[0].userId}`;
+                loginBtn.style.display = "none"; // Hide login button if user is logged in
+                logoutBtn.style.display = "block"; // Show logout button if user is logged in
+            }
+        })
+        .catch(() => {
+            loginBtn.style.display = "block"; // Show login button if user is not logged in
+            logoutBtn.style.display = "none"; // Hide logout button if user is not logged in
+        });
+
+    // Handle Google login functionality
+    loginBtn.addEventListener("click", () => {
+        window.location.href = "/.auth/login/google"; // Redirect to Google login
+    });
+
+    // Handle Google logout functionality
+    logoutBtn.addEventListener("click", () => {
+        window.location.href = "/.auth/logout"; // Redirect to logout
+    });
 
     loadImageBtn.addEventListener("click", () => {
         if (imageContainer.querySelector("img")) {
@@ -37,35 +66,5 @@ document.addEventListener("DOMContentLoaded", () => {
             .replace(/'/g, "&#039;");
 
         textInput.value = sanitized;
-    });
-
-    fetch("/.auth/me")
-        .then((response) => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error("User is not authenticated");
-            }
-        })
-        .then((userInfo) => {
-            if (userInfo.length > 0) {
-                userDetails.textContent = `Welcome back, ${userInfo[0].userId}`;
-                loginBtn.style.display = "none"; // Hide login button if user is logged in
-                logoutBtn.style.display = "block"; // Show logout button if user is logged in
-            }
-        })
-        .catch(() => {
-            loginBtn.style.display = "block"; // Show login button if user is not logged in
-            logoutBtn.style.display = "none"; // Hide logout button if user is not logged in
-        });
-
-    // Handle Google login functionality
-    loginBtn.addEventListener("click", () => {
-        window.location.href = "/.auth/login/google"; // Redirect to Google login
-    });
-
-    // Handle Google logout functionality
-    logoutBtn.addEventListener("click", () => {
-        window.location.href = "/.auth/logout"; // Redirect to logout
     });
 });
