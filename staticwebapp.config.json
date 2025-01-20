@@ -21,7 +21,8 @@
         "allowedRoles": ["authenticated"]
     },
     {
-        "route": "/.auth/login/google"
+        "route": "/login",
+        "redirect": "/.auth/login/google"
     },
     {
         "route": "/logout",
