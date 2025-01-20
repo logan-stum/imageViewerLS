@@ -17,19 +17,27 @@
         }
       }
     },
-    "routes": [
-      {
-        "route": "/",
-        "allowedRoles": ["authenticated"]
-      },
-      {
-        "route": "/login",
-        "redirect": "/.auth/login/google"
-      },
-      {
-        "route": "/logout",
-        "redirect": "/.auth/logout"
-      }
-    ]
+"routes": [
+    {
+      "route": "/",
+      "allowedRoles": []  // No roles required for home page
+    },
+    {
+      "route": "/profile",
+      "allowedRoles": ["authenticated"]  // Only authenticated users can access the profile page
+    },
+    {
+      "route": "/dashboard",
+      "allowedRoles": ["authenticated"]  // Only authenticated users can access the dashboard
+    },
+    {
+      "route": "/login",
+      "redirect": "/.auth/login/google"
+    },
+    {
+      "route": "/logout",
+      "redirect": "/.auth/logout"
+    }
+  ]
   }
   
