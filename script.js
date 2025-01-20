@@ -8,25 +8,32 @@ document.addEventListener("DOMContentLoaded", () => {
     const userDetails = document.getElementById("userDetails");
 
     let img;
-    fetch("/.auth/me")
-        .then((response) => {
+
+    const checkAuthentication = async () => {
+        try {
+            const response = await fetch("/.auth/me");  // Check if the user is logged in
             if (response.ok) {
-                return response.json();
+                const userInfo = await response.json();
+                if (userInfo.length > 0) {
+                    // If logged in, redirect to the welcome page
+                    window.location.href = "/welcome";  // Change this to your actual welcome page URL
+                } else {
+                    // If not logged in, show the login button
+                    document.getElementById("loginBtn").style.display = "block";
+                }
             } else {
-                throw new Error("User is not authenticated");
+                // If the authentication check fails, show the login button
+                document.getElementById("loginBtn").style.display = "block";
             }
-        })
-        .then((userInfo) => {
-            if (userInfo.length > 0) {
-                userDetails.textContent = `Welcome back, ${userInfo[0].userId}`;
-                loginBtn.style.display = "none"; // Hide login button if user is logged in
-                logoutBtn.style.display = "block"; // Show logout button if user is logged in
-            }
-        })
-        .catch(() => {
-            loginBtn.style.display = "block"; // Show login button if user is not logged in
-            logoutBtn.style.display = "none"; // Hide logout button if user is not logged in
-        });
+        } catch (error) {
+            console.error("Error checking authentication:", error);
+            // If there was an error checking auth, show login button
+            document.getElementById("loginBtn").style.display = "block";
+        }
+    };
+
+    // Call the checkAuthentication function when the page loads
+    checkAuthentication();
 
     // Handle Google login functionality
     loginBtn.addEventListener("click", () => {
