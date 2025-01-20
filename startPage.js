@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
     const loginGoogleBtn = document.getElementById("loginGoogleBtn");
-    const loginFacebookBtn = document.getElementById("loginFacebookBtn");
 
     const checkAuthentication = async () => {
         try {
@@ -13,19 +12,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 } else {
                     console.log("Rip");
                     document.getElementById("loginGoogleBtn").style.display = "block";
-                    document.getElementById("loginFacebookBtn").style.display = "block";
-
                 }
             } else {
                 document.getElementById("loginGoogleBtn").style.display = "block";
-                document.getElementById("loginFacebookBtn").style.display = "block";
-
             }
         } catch (error) {
             console.error("Error checking authentication:", error);
             document.getElementById("loginGoogleBtn").style.display = "block";
-            document.getElementById("loginFacebookBtn").style.display = "block";
-
         }
     };
 
@@ -35,9 +28,5 @@ document.addEventListener("DOMContentLoaded", () => {
     // Handle Google login functionality
     loginGoogleBtn.addEventListener("click", () => {
         window.location.href = "/.auth/login/google"; // Redirect to Google login
-    });
-    
-    loginFacebookBtn.addEventListener("click", () => {
-        window.location.href = "/.auth/login/facebook"; // Redirect to Google login
     });
 });
