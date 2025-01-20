@@ -1,7 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const loginBtn = document.getElementById("loginBtn");
+    const loginGoogleBtn = document.getElementById("loginGoogleBtn");
+    const loginFacebookBtn = document.getElementById("loginFacebookBtn");
 
-        const checkAuthentication = async () => {
+    const checkAuthentication = async () => {
         try {
             const response = await fetch("/.auth/me");
             if (response.ok) {
@@ -11,14 +12,20 @@ document.addEventListener("DOMContentLoaded", () => {
                     window.location.href = "/welcome";  
                 } else {
                     console.log("Rip");
-                    document.getElementById("loginBtn").style.display = "block";
+                    document.getElementById("loginGoogleBtn").style.display = "block";
+                    document.getElementById("loginFacebookBtn").style.display = "block";
+
                 }
             } else {
-                document.getElementById("loginBtn").style.display = "block";
+                document.getElementById("loginGoogleBtn").style.display = "block";
+                document.getElementById("loginFacebookBtn").style.display = "block";
+
             }
         } catch (error) {
             console.error("Error checking authentication:", error);
-            document.getElementById("loginBtn").style.display = "block";
+            document.getElementById("loginGoogleBtn").style.display = "block";
+            document.getElementById("loginFacebookBtn").style.display = "block";
+
         }
     };
 
@@ -26,7 +33,11 @@ document.addEventListener("DOMContentLoaded", () => {
     checkAuthentication();
 
     // Handle Google login functionality
-    loginBtn.addEventListener("click", () => {
+    loginGoogleBtn.addEventListener("click", () => {
         window.location.href = "/.auth/login/google"; // Redirect to Google login
+    });
+    
+    loginFacebookBtn.addEventListener("click", () => {
+        window.location.href = "/.auth/login/facebook"; // Redirect to Google login
     });
 });
