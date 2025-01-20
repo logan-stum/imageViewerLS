@@ -25,6 +25,10 @@
         "redirect": "/.auth/login/google"
     },
     {
+        "route": "/.auth/complete",
+        "redirect": "/welcome"
+    },
+    {
         "route": "/logout",
         "redirect": "/.auth/logout"
     }
