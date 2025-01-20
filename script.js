@@ -7,6 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const logoutBtn = document.getElementById("logoutBtn"); // Add ID for the logout button
     const userDetails = document.getElementById("userDetails");
 
+    logoutBtn.style.display = "none";
+
     let img;
 
     loadImageBtn.addEventListener("click", () => {
