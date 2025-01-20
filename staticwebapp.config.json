@@ -19,6 +19,7 @@
     {
     "route": "/welcome",
     "allowedRoles": ["authenticated"]  
+    },
     {
     "route": "/.auth/login/google",
     "redirect": "/welcome" 
