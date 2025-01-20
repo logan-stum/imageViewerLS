@@ -10,31 +10,23 @@
       }
     }
   ,
+
 "routes": [
     {
-      "route": "/",
-      "allowedRoles": [] 
+    "route": "/",
+    "allowedRoles": []
     },
     {
-        "route": "/welcome",
-        "allowedRoles": ["authenticated"]
+    "route": "/welcome",
+    "allowedRoles": ["authenticated"]  
+    {
+    "route": "/.auth/login/google",
+    "redirect": "/welcome" 
     },
     {
-        "route": "/login",
-        "redirect": "/.auth/login/google"
-    },
-    {
-        "route": "/.auth/login/google",
-        "redirect": "/welcome"
-    },
-    {
-      "route": "/logout",
-      "redirect": "/.auth/logout"
-    },
-    {
-        "route": "/.auth/logout",
-        "redirect": "/"
+    "route": "/logout",
+    "redirect": "/.auth/logout"
     }
-  ]
-  }
-  
+]
+}
+
