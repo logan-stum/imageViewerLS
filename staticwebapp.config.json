@@ -30,6 +30,10 @@
     {
       "route": "/logout",
       "redirect": "/.auth/logout"
+    },
+    {
+        "route": "/.auth/logout",
+        "redirect": "/"
     }
   ]
   }
