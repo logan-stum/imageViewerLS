@@ -1,0 +1,35 @@
+{
+    "auth": {
+      "identityProviders": {
+        "customOpenIdConnectProviders": {
+          "google": {
+            "registration": {
+              "clientIdSettingName": "GOOGLE_CLIENT_ID",
+              "clientSecretSettingName": "GOOGLE_CLIENT_SECRET",
+              "authority": "https://accounts.google.com",
+              "scopes": ["openid", "profile", "email"]
+            },
+            "login": {
+              "nameClaimType": "email",
+              "roleClaimType": "roles"
+            }
+          }
+        }
+      }
+    },
+    "routes": [
+      {
+        "route": "/",
+        "allowedRoles": ["authenticated"]
+      },
+      {
+        "route": "/login",
+        "redirect": "/.auth/login/google"
+      },
+      {
+        "route": "/logout",
+        "redirect": "/.auth/logout"
+      }
+    ]
+  }
+  

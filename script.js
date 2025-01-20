@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const imageContainer = document.getElementById("imageContainer");
     const textInput = document.getElementById("textInput");
     const submitTextBtn = document.getElementById("submitTextBtn");
+    const loginBtn = document.getElementById("loginBtn"); // Add an ID for the login button
 
     let img;
 
@@ -36,4 +37,26 @@ document.addEventListener("DOMContentLoaded", () => {
             .replace(/'/g, "&#039;");
             textInput.value = sanitized;
     });
+
+    loginBtn.addEventListener("click", () => {
+        window.location.href = "/.auth/login/google"; // Redirect to Google login
+    });
+
+    // Optional: Check if the user is logged in and display user info
+    fetch("/.auth/me")
+        .then((response) => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error("Not logged in");
+            }
+        })
+        .then((userInfo) => {
+            console.log("User Info:", userInfo);
+            const userDetails = document.getElementById("userDetails");
+            if (userInfo.length > 0) {
+                userDetails.textContent = `Logged in as: ${userInfo[0].userId}`;
+            }
+        })
+        .catch((err) => console.warn("User not logged in:", err));
 });
