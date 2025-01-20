@@ -41,6 +41,17 @@ document.addEventListener("DOMContentLoaded", () => {
         textInput.value = sanitized;
     });
 
+    function updateAuthUI(isAuthenticated) {
+        if (isAuthenticated) {
+            loginBtn.style.display = "none"; // Hide login button
+            logoutBtn.style.display = "block"; // Show logout button
+        } else {
+            loginBtn.style.display = "block"; // Show login button
+            logoutBtn.style.display = "none"; // Hide logout button
+        }
+    }
+
+
     // Check if the user is already logged in
     fetch("/.auth/me")
         .then((response) => {
@@ -52,15 +63,19 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .then((userInfo) => {
             if (userInfo.length > 0) {
+                // User is authenticated
                 userDetails.textContent = `Logged in as: ${userInfo[0].userId}`;
-                loginBtn.style.display = "none"; // Hide login button if user is logged in
-                logoutBtn.style.display = "block"; // Show logout button if user is logged in
+                updateAuthUI(true); // Show logout button, hide login
+            } else {
+                // User is not authenticated
+                updateAuthUI(false); // Show login button, hide logout
             }
         })
         .catch(() => {
-            loginBtn.style.display = "block"; // Show login button if user is not logged in
-            logoutBtn.style.display = "none"; // Hide logout button if user is not logged in
+            // In case of error (e.g., no session or network issue)
+            updateAuthUI(false); // Show login button, hide logout
         });
+
 
     // Handle Google login functionality
     loginBtn.addEventListener("click", () => {
