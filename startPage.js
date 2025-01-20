@@ -6,8 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const response = await fetch("/.auth/me");
             if (response.ok) {
                 const userInfo = await response.json();
-                console.log(userInfo);
                 if (userInfo.length > 0) {
+                    console.log(userInfo);
                     window.location.href = "/welcome";  
                 } else {
                     document.getElementById("loginBtn").style.display = "block";
