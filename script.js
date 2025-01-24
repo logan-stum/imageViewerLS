@@ -4,11 +4,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const textInput = document.getElementById("textInput");
     const submitTextBtn = document.getElementById("submitTextBtn");
     const logoutBtn = document.getElementById("logoutBtn"); // Add ID for the logout button
-    const weatherInfoDiv = document.getElementById("weatherInfo");
+    const weatherInfoBtn = document.getElementById("weatherBtn");
 
     let img;
 
-    weatherInfoDiv.addEventListener("click", () => {
+    weatherInfoBtn.addEventListener("click", () => {
         if (!navigator.geolocation) {
             weatherInfoDiv.innerHTML = "Geolocation is not supported by your browser.";
             return;
