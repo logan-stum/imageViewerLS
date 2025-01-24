@@ -8,43 +8,68 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let img;
 
-    try {
-        // Get the user's location
+    weatherInfoDiv.addEventListener("click", () => {
         if (!navigator.geolocation) {
             weatherInfoDiv.innerHTML = "Geolocation is not supported by your browser.";
             return;
         }
-
-        navigator.geolocation.getCurrentPosition(async (position) => {
+    
+        // Get the user's location
+        navigator.geolocation.getCurrentPosition((position) => {
             const { latitude, longitude } = position.coords;
-
-            // Fetch weather data using Meteostat
-            const apiKey = "f8d55b7a3emshcf2e49d20e251b3p157e29jsna3d4ebdf116e"; // Replace with your actual API key
-            const url = `https://api.meteostat.net/v2/point/current?lat=${latitude}&lon=${longitude}&key=${apiKey}`;
-            
+    
             const data = null;
-
             const xhr = new XMLHttpRequest();
             xhr.withCredentials = true;
-
+    
             xhr.addEventListener('readystatechange', function () {
                 if (this.readyState === this.DONE) {
-                    <p> this.responseText </p>
+                    try {
+                        // Parse the response text
+                        const response = JSON.parse(this.responseText);
+    
+                        // Check if the response contains valid data
+                        if (response && response.data) {
+                            const weatherData = response.data;
+    
+                            // Display the weather data
+                            let output = `<h3>Monthly Weather Data:</h3>`;
+                            weatherData.forEach((month, index) => {
+                                output += `
+                                    <p><strong>Month:</strong> ${index + 1}</p>
+                                    <p><strong>Average Temperature:</strong> ${month.tavg}°C</p>
+                                    <p><strong>Average Precipitation:</strong> ${month.prcp} mm</p>
+                                    <p><strong>Average Snowfall:</strong> ${month.snow} cm</p>
+                                    <hr>
+                                `;
+                            });
+                            weatherInfoDiv.innerHTML = output;
+                        } else {
+                            weatherInfoDiv.innerHTML = "No weather data available.";
+                        }
+                    } catch (err) {
+                        weatherInfoDiv.innerHTML = `Error parsing weather data: ${err.message}`;
+                    }
                 }
             });
-
-            xhr.open('GET', 'https://meteostat.p.rapidapi.com/point/monthly?lat=${latitude}&lon=${longitude}&alt=43&start=2020-01-01&end=2020-12-31');
+    
+            // Open the request with dynamic latitude and longitude
+            xhr.open(
+                'GET',
+                `https://meteostat.p.rapidapi.com/point/monthly?lat=${latitude}&lon=${longitude}&alt=43&start=2020-01-01&end=2020-12-31`
+            );
+    
+            // Set the required headers
             xhr.setRequestHeader('x-rapidapi-key', 'f8d55b7a3emshcf2e49d20e251b3p157e29jsna3d4ebdf116e');
             xhr.setRequestHeader('x-rapidapi-host', 'meteostat.p.rapidapi.com');
-
+    
+            // Send the request
             xhr.send(data);
         }, (error) => {
+            // Handle location errors
             weatherInfoDiv.innerHTML = `Failed to get location: ${error.message}`;
         });
-    } catch (err) {
-        weatherInfoDiv.innerHTML = `Error fetching weather data: ${err.message}`;
-    }
-
+    });
     // Handle Google logout functionality
     logoutBtn.addEventListener("click", () => {
         window.location.href = "/.auth/logout"; // Redirect to logout
