@@ -29,21 +29,17 @@ document.addEventListener("DOMContentLoaded", () => {
                         const response = JSON.parse(this.responseText);
     
                         // Check if the response contains valid data
-                        if (response && response.data) {
-                            const weatherData = response.data;
-    
-                            // Display the weather data
-                            let output = `<h3>Monthly Weather Data:</h3>`;
-                            weatherData.forEach((month, index) => {
-                                output += `
-                                    <p><strong>Month:</strong> ${index + 1}</p>
-                                    <p><strong>Average Temperature:</strong> ${month.tavg}°C</p>
-                                    <p><strong>Average Precipitation:</strong> ${month.prcp} mm</p>
-                                    <p><strong>Average Snowfall:</strong> ${month.snow} cm</p>
-                                    <hr>
-                                `;
-                            });
-                            weatherInfoBtn.innerHTML = output;
+
+                        if (response && response.data && response.data.length > 0) {
+                            const weather = response.data[0]; // Get the first weather record
+                            const output = `
+                                <h3>Current Weather:</h3>
+                                <p><strong>Temperature:</strong> ${weather.temperature}°C</p>
+                                <p><strong>Wind Speed:</strong> ${weather.wind_speed} km/h</p>
+                                <p><strong>Humidity:</strong> ${weather.humidity}%</p>
+                                <p><strong>Condition:</strong> ${weather.condition}</p>
+                            `;
+                            weatherInfoDiv.innerHTML = output;
                         } else {
                             weatherInfoBtn.innerHTML = "No weather data available.";
                         }
