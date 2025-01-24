@@ -22,20 +22,22 @@ document.addEventListener("DOMContentLoaded", () => {
             const apiKey = "f8d55b7a3emshcf2e49d20e251b3p157e29jsna3d4ebdf116e"; // Replace with your actual API key
             const url = `https://api.meteostat.net/v2/point/current?lat=${latitude}&lon=${longitude}&key=${apiKey}`;
             
-            const response = await fetch(url);
-            const data = await response.json();
+            const data = null;
 
-            if (data && data.data) {
-                const weather = data.data[0]; // Meteostat API returns weather in the `data` array
-                weatherInfoDiv.innerHTML = `
-                    <h3>Weather Information:</h3>
-                    <p><strong>Temperature:</strong> ${weather.temperature}°C</p>
-                    <p><strong>Condition:</strong> ${weather.condition}</p>
-                    <p><strong>Wind Speed:</strong> ${weather.wind_speed} km/h</p>
-                `;
-            } else {
-                weatherInfoDiv.innerHTML = "Unable to fetch weather data.";
-            }
+            const xhr = new XMLHttpRequest();
+            xhr.withCredentials = true;
+
+            xhr.addEventListener('readystatechange', function () {
+                if (this.readyState === this.DONE) {
+                    <p><strong>Wind Speed:</strong> ${this.responseText} km/h</p>
+                }
+            });
+
+            xhr.open('GET', 'https://meteostat.p.rapidapi.com/point/monthly?lat=${latitude}&lon=${longitude}&alt=43&start=2020-01-01&end=2020-12-31');
+            xhr.setRequestHeader('x-rapidapi-key', 'f8d55b7a3emshcf2e49d20e251b3p157e29jsna3d4ebdf116e');
+            xhr.setRequestHeader('x-rapidapi-host', 'meteostat.p.rapidapi.com');
+
+            xhr.send(data);
         }, (error) => {
             weatherInfoDiv.innerHTML = `Failed to get location: ${error.message}`;
         });
