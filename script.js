@@ -31,12 +31,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
                         if (response && response.data && response.data.length > 0) {
                             const weather = response.data[0]; // Get the first weather record
+                            const maxfahrenheit = (weather.tmax * 9/5) + 32;
+                            const minfahrenheit = (weather.tmin * 9/5) + 32;
+
                             const output = `
                                 <h3>Current Weather:</h3>
-                                <p><strong>Temperature:</strong> ${weather.temp}°C</p>
+                                <p><strong>High:</strong> ${maxfahrenheit.toFixed(2)}°F</p>
+                                <p><strong>Low:</strong> ${minfahrenheit.toFixed(2)}°F</p>
                                 <p><strong>Wind Speed:</strong> ${weather.wspd} km/h</p>
-                                <p><strong>Humidity:</strong> ${weather.rhum}%</p>
-                                <p><strong>Condition:</strong> ${weather.condition}</p>
+                                <p><strong>Total Precipitation:</strong> ${weather.prcp}%</p>
                             `;
                             weatherInfoBtn.innerHTML = output;
                         } else {
