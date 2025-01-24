@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     weatherInfoBtn.addEventListener("click", () => {
         if (!navigator.geolocation) {
-            weatherInfoDiv.innerHTML = "Geolocation is not supported by your browser.";
+            weatherInfoBtn.innerHTML = "Geolocation is not supported by your browser.";
             return;
         }
     
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                 <p><strong>Humidity:</strong> ${weather.humidity}%</p>
                                 <p><strong>Condition:</strong> ${weather.condition}</p>
                             `;
-                            weatherInfoDiv.innerHTML = output;
+                            weatherInfoBtn.innerHTML = output;
                         } else {
                             weatherInfoBtn.innerHTML = "No weather data available.";
                         }
