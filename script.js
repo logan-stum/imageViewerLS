@@ -18,6 +18,13 @@ document.addEventListener("DOMContentLoaded", () => {
         navigator.geolocation.getCurrentPosition((position) => {
             const { latitude, longitude } = position.coords;
     
+            // Get the current time and calculate the last hour
+            const now = new Date();
+            const oneHourAgo = new Date(now.getTime() - 60 * 60 * 1000);
+
+            // Format dates to ISO strings
+            const start = oneHourAgo.toISOString();
+            const end = now.toISOString();
             const data = null;
             const xhr = new XMLHttpRequest();
             xhr.withCredentials = true;
@@ -52,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Open the request with dynamic latitude and longitude
             xhr.open(
                 'GET',
-                `https://meteostat.p.rapidapi.com/point/current?lat=${latitude}&lon=${longitude}`
+                `https://meteostat.p.rapidapi.com/point/hourly?lat=${latitude}&lon=${longitude}&start=${start}&end=${end}`
             );
     
             // Set the required headers
