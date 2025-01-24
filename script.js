@@ -43,12 +43,12 @@ document.addEventListener("DOMContentLoaded", () => {
                                     <hr>
                                 `;
                             });
-                            weatherInfoDiv.innerHTML = output;
+                            weatherInfoBtn.innerHTML = output;
                         } else {
-                            weatherInfoDiv.innerHTML = "No weather data available.";
+                            weatherInfoBtn.innerHTML = "No weather data available.";
                         }
                     } catch (err) {
-                        weatherInfoDiv.innerHTML = `Error parsing weather data: ${err.message}`;
+                        weatherInfoBtn.innerHTML = `Error parsing weather data: ${err.message}`;
                     }
                 }
             });
@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
             xhr.send(data);
         }, (error) => {
             // Handle location errors
-            weatherInfoDiv.innerHTML = `Failed to get location: ${error.message}`;
+            weatherInfoBtn.innerHTML = `Failed to get location: ${error.message}`;
         });
     });
     // Handle Google logout functionality
