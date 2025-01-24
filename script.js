@@ -4,8 +4,44 @@ document.addEventListener("DOMContentLoaded", () => {
     const textInput = document.getElementById("textInput");
     const submitTextBtn = document.getElementById("submitTextBtn");
     const logoutBtn = document.getElementById("logoutBtn"); // Add ID for the logout button
+    const weatherInfoDiv = document.getElementById("weatherInfo");
 
     let img;
+
+    try {
+        // Get the user's location
+        if (!navigator.geolocation) {
+            weatherInfoDiv.innerHTML = "Geolocation is not supported by your browser.";
+            return;
+        }
+
+        navigator.geolocation.getCurrentPosition(async (position) => {
+            const { latitude, longitude } = position.coords;
+
+            // Fetch weather data using Meteostat
+            const apiKey = "your-meteostat-api-key"; // Replace with your actual API key
+            const url = `https://api.meteostat.net/v2/point/current?lat=${latitude}&lon=${longitude}&key=${apiKey}`;
+            
+            const response = await fetch(url);
+            const data = await response.json();
+
+            if (data && data.data) {
+                const weather = data.data[0]; // Meteostat API returns weather in the `data` array
+                weatherInfoDiv.innerHTML = `
+                    <h3>Weather Information:</h3>
+                    <p><strong>Temperature:</strong> ${weather.temperature}°C</p>
+                    <p><strong>Condition:</strong> ${weather.condition}</p>
+                    <p><strong>Wind Speed:</strong> ${weather.wind_speed} km/h</p>
+                `;
+            } else {
+                weatherInfoDiv.innerHTML = "Unable to fetch weather data.";
+            }
+        }, (error) => {
+            weatherInfoDiv.innerHTML = `Failed to get location: ${error.message}`;
+        });
+    } catch (err) {
+        weatherInfoDiv.innerHTML = `Error fetching weather data: ${err.message}`;
+    }
 
     // Handle Google logout functionality
     logoutBtn.addEventListener("click", () => {

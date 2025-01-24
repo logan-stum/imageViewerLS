@@ -76,3 +76,36 @@ textarea {
     border-radius: 5px;
     background-color: #f9f9f9;
 }
+
+/* Weather Button Styles */
+.weather-btn {
+    padding: 15px 30px;
+    font-size: 1rem;
+    color: #fff;
+    background: #34c759;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.weather-btn:hover {
+    background: #28a745;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.weather-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Weather Info Styles */
+.weather-info {
+    margin-top: 20px;
+    font-size: 1.1rem;
+    color: #fff;
+    text-align: left;
+}
