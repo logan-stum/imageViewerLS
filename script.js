@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const { latitude, longitude } = position.coords;
 
             // Fetch weather data using Meteostat
-            const apiKey = "your-meteostat-api-key"; // Replace with your actual API key
+            const apiKey = "f8d55b7a3emshcf2e49d20e251b3p157e29jsna3d4ebdf116e"; // Replace with your actual API key
             const url = `https://api.meteostat.net/v2/point/current?lat=${latitude}&lon=${longitude}&key=${apiKey}`;
             
             const response = await fetch(url);
