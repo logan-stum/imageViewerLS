@@ -33,9 +33,9 @@ document.addEventListener("DOMContentLoaded", () => {
                             const weather = response.data[0]; // Get the first weather record
                             const output = `
                                 <h3>Current Weather:</h3>
-                                <p><strong>Temperature:</strong> ${weather.temperature}°C</p>
-                                <p><strong>Wind Speed:</strong> ${weather.wind_speed} km/h</p>
-                                <p><strong>Humidity:</strong> ${weather.humidity}%</p>
+                                <p><strong>Temperature:</strong> ${weather.temp}°C</p>
+                                <p><strong>Wind Speed:</strong> ${weather.wspd} km/h</p>
+                                <p><strong>Humidity:</strong> ${weather.rhum}%</p>
                                 <p><strong>Condition:</strong> ${weather.condition}</p>
                             `;
                             weatherInfoBtn.innerHTML = output;
@@ -48,11 +48,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             });
     
-            const currentDate = new Date().toISOString().split('T')[0]; 
+            var dateUTC = new Date()
+            const currentDate = toIsoString(dateUTC).split('T')[0]; 
             // Open the request with dynamic latitude and longitude
             xhr.open(
                 'GET',
-                `https://meteostat.p.rapidapi.com/point/hourly?lat=${latitude}&lon=${longitude}&alt=113&start=${currentDate}&end=${currentDate}&tz=America%2FToronto`
+                `https://meteostat.p.rapidapi.com/point/daily?lat=${latitude}&lon=${longitude}&alt=113&start=${currentDate}&end=${currentDate}`
             );
     
             // Set the required headers
@@ -66,6 +67,24 @@ document.addEventListener("DOMContentLoaded", () => {
             weatherInfoBtn.innerHTML = `Failed to get location: ${error.message}`;
         });
     });
+
+    function toIsoString(date) {
+        var tzo = -date.getTimezoneOffset(),
+            dif = tzo >= 0 ? '+' : '-',
+            pad = function(num) {
+                return (num < 10 ? '0' : '') + num;
+            };
+      
+        return date.getFullYear() +
+            '-' + pad(date.getMonth() + 1) +
+            '-' + pad(date.getDate()) +
+            'T' + pad(date.getHours()) +
+            ':' + pad(date.getMinutes()) +
+            ':' + pad(date.getSeconds()) +
+            dif + pad(Math.floor(Math.abs(tzo) / 60)) +
+            ':' + pad(Math.abs(tzo) % 60);
+      }
+
     // Handle Google logout functionality
     logoutBtn.addEventListener("click", () => {
         window.location.href = "/.auth/logout"; // Redirect to logout
