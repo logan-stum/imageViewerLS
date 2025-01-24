@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             xhr.addEventListener('readystatechange', function () {
                 if (this.readyState === this.DONE) {
-                    <p><strong>Wind Speed:</strong> ${this.responseText} km/h</p>
+                    <p> this.responseText </p>
                 }
             });
 
