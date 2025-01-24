@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Open the request with dynamic latitude and longitude
             xhr.open(
                 'GET',
-                `https://meteostat.p.rapidapi.com/point/monthly?lat=${latitude}&lon=${longitude}&alt=43&start=2020-01-01&end=2020-12-31`
+                `https://meteostat.p.rapidapi.com/point/current?lat=${latitude}&lon=${longitude}`
             );
     
             // Set the required headers
