@@ -1,0 +1,190 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Weather API",
+    "description": "A simple API for storing and fetching weather data",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://your-static-web-app.azurestaticapps.net/api"
+    }
+  ],
+  "paths": {
+    "/weather/create": {
+      "post": {
+        "summary": "Create new weather data",
+        "description": "Adds new weather data to the database.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "lat": {
+                    "type": "number",
+                    "example": 52.5244
+                  },
+                  "lon": {
+                    "type": "number",
+                    "example": 13.4105
+                  },
+                  "weatherData": {
+                    "type": "object",
+                    "properties": {
+                      "temperature": {
+                        "type": "number",
+                        "example": 22.5
+                      },
+                      "humidity": {
+                        "type": "number",
+                        "example": 80
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Weather data created successfully"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/weather/read": {
+      "get": {
+        "summary": "Get weather data",
+        "description": "Retrieves weather data for a given latitude and longitude.",
+        "parameters": [
+          {
+            "name": "lat",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "example": 52.5244
+            }
+          },
+          {
+            "name": "lon",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "example": 13.4105
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Weather data retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "lat": {
+                      "type": "number"
+                    },
+                    "lon": {
+                      "type": "number"
+                    },
+                    "weatherData": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Weather data not found"
+          }
+        }
+      }
+    },
+    "/weather/update": {
+      "put": {
+        "summary": "Update weather data",
+        "description": "Updates existing weather data.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "weatherData": {
+                    "type": "object",
+                    "properties": {
+                      "temperature": {
+                        "type": "number",
+                        "example": 23.5
+                      },
+                      "humidity": {
+                        "type": "number",
+                        "example": 75
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Weather data updated successfully"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "404": {
+            "description": "Weather data not found"
+          }
+        }
+      }
+    },
+    "/weather/delete": {
+      "delete": {
+        "summary": "Delete weather data",
+        "description": "Deletes weather data for a given ID.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "example": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Weather data deleted successfully"
+          },
+          "404": {
+            "description": "Weather data not found"
+          }
+        }
+      }
+    }
+  }
+}
