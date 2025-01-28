@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meteostat Weather Data</title>
+    <link rel="stylesheet" href="style.css">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="api/editDb.js" defer></script>
+
+</head>
+<body>
+    <h1>Manage Data in IndexedDB</h1>
+
+    <table id="data-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Data</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data rows will be added dynamically here -->
+        </tbody>
+    </table>
+
+    <div id="edit-form">
+        <input type="text" id="edit-id" hidden />
+        <input type="text" id="edit-data" placeholder="Enter new data" />
+        <button onclick="updateData()">Update</button>
+        <button onclick="addData()">Add</button>
+    </div>
+</body>
+</html>

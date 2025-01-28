@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     const loginGoogleBtn = document.getElementById("loginGoogleBtn");
     const swaggerBtn = document.getElementById("swaggerBtn");
-
+    const apiBtn = document.getElementById("apiBtn");
     const checkAuthentication = async () => {
         try {
             const response = await fetch("/.auth/me");
@@ -34,4 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
     swaggerBtn.addEventListener("click", () => {
         window.location.href = "/swagger"; // Redirect to Google login
     });
-});
+
+    apiBtn.addEventListener("click", () => {
+        window.location.href = "/api"; // Redirect to Google login
+    });});

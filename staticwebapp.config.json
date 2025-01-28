@@ -27,6 +27,18 @@
     {
         "route": "/logout",
         "redirect": "/.auth/logout"
+    }, 
+    {
+      "route": "/swagger",
+      "allowedRoles": []
+    }, 
+    {
+      "route": "/api",
+      "allowedRoles": []
+    } , 
+    {
+      "route": "/editDb",
+      "allowedRoles": []
     }
   ]
 }
