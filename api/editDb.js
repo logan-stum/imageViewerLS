@@ -56,12 +56,20 @@ function loadData() {
 
         data.forEach(item => {
             const row = document.createElement("tr");
+            var avg = (item.tavg* 1.8 + 32).toFixed(1);
+            var high = (item.tmax* 1.8 + 32).toFixed(1);
+            var low = (item.tmin* 1.8 + 32).toFixed(1);
             row.innerHTML = `
-                <td>${item.id}</td>
-                <td>${item.value}</td>
+                <td>${item.date}</td>
+                <td>${item.prcp}</td>
+                <td>${item.pres}</td>
+                <td>${avg}</td>
+                <td>${high}</td>
+                <td>${low}</td>
+                <td>${item.wspd}</td>
                 <td>
                     <button onclick="editData(${item.id})">Edit</button>
-                    <button onclick="deleteData(${item.id})">Delete</button>
+                    <button onclick="deleteData(${item.prcp})">Delete</button>
                 </td>
             `;
             tableBody.appendChild(row);

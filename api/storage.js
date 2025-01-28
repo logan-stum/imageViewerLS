@@ -6,7 +6,7 @@ function saveDataToLocalDB(data) {
     request.onupgradeneeded = function (event) {
         const db = event.target.result;
         if (!db.objectStoreNames.contains('weatherData')) {
-            const store = db.createObjectStore('weatherData', { keyPath: 'date' });
+            const store = db.createObjectStore('weatherData', { keyPath: 'date', autoIncrement : true });
             store.createIndex('temperature', 'temperature');
             store.createIndex('precipitation', 'precipitation');
         }
