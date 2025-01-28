@@ -68,7 +68,7 @@ function loadData() {
                 <td>${low}</td>
                 <td>${item.wspd}</td>
                 <td>
-                    <button onclick="editData(${item.id})">Edit</button>
+                    <button onclick="editData(${item.prcp})">Edit</button>
                     <button onclick="deleteData(${item.prcp})">Delete</button>
                 </td>
             `;
